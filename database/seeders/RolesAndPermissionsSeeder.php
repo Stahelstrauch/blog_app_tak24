@@ -46,9 +46,9 @@ class RolesAndPermissionsSeeder extends Seeder
         $author = Role::firstOrCreate(['name' => 'Author']);
 
         // Õigused rollidele
-        $admin->syncPermission(Permission::all());
+        $admin->syncPermissions(Permission::all());
 
-        $moderator->syncPermission([
+        $moderator->syncPermissions([
             'posts.create',
             'posts.update.own',
             'posts.update.any',
@@ -61,7 +61,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'tags.manage',
         ]);
 
-        $author->syncPermission([
+        $author->syncPermissions([
             'posts.create',
             'posts.update.own',
             'posts.delete.own',
@@ -88,7 +88,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $authorUser->assignRole($author); // Lisab õigused
 
         // Uuenda cache
-        app()[PermissionRegistrar::class]->forgetCachedPermission();
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
 
     }

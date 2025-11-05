@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('post_id')->contrained()->cascadeOnDeleted();
             //Kommenteerida saavad ainult sisseloginud kasutajad ->FK required
             $table->foreignId('user_id')->contrained()->cascadeOnDelete();
+            $table->text('body');
             $table->enum('status', ['pending', 'approved', 'hidden', 'spam'])->default('pending')->index();
             $table->string('ip_address', 45)->nullable();
             $table->timestamps();
