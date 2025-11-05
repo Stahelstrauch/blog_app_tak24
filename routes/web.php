@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
@@ -18,3 +19,8 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 // Salvesta kommentaar sisseloginud kasutajalt
 Route::post('/blog/{slug}/comments', [CommentController::class, 'store'])->middleware(['auth'])->middleware(['auth'])->name('comments.store');
+
+//Admin route
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:Admin|Moderator'])->group(function(){
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+});
