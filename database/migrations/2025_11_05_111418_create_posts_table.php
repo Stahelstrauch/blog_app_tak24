@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             // Autor võib hiljem olla kustutatud ehk set null
-            $table->foreignId('user_id')->nullable()->contrained()->nullOnDeleted();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDeleted();
             //Kategooria pole kohustuslik
-            $table->foreignId('category_id')->nullable()->contrained()->nullOnDeleted();
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDeleted();
             $table->string('title', 180);
             $table->string('slug', 220)->unique();
             $table->text('excerpt')->nullable(); // Sissejuhatav tekst

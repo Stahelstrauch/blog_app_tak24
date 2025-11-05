@@ -48,7 +48,7 @@ class Post extends Model
     //Abi funktsioonid
     // Abiskoop (scope) avalikule loendile
     public function scopePublic($q) {
-        return $q->where('status'. 'published')->whereNotNull('published_at')->where('published_at', '<=', now()); // Avaldamise aeg on väiksem võrdne kui praegune aeg // peab olema avaldamise aeg
+        return $q->where('status', 'published')->whereNotNull('published_at')->where('published_at', '<=', now()); // Avaldamise aeg on väiksem võrdne kui praegune aeg // peab olema avaldamise aeg
     }
     // Kui on pildile fail juurde lisatud
     /**

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('post_id')->contrained()->cascadeOnDeleted();
+            $table->foreignId('post_id')->constrained()->cascadeOnDeleted();
             //Kommenteerida saavad ainult sisseloginud kasutajad ->FK required
-            $table->foreignId('user_id')->contrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->text('body');
             $table->enum('status', ['pending', 'approved', 'hidden', 'spam'])->default('pending')->index();
             $table->string('ip_address', 45)->nullable();
