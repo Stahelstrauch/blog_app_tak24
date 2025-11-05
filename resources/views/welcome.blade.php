@@ -2,6 +2,6 @@
 @section('title', 'Blog | Avaleht')
 @section('content')
 
-Test
+Test <i class="fa-solid fa-comment"></i>
 
 @endsection
