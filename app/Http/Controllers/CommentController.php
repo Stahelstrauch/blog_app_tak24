@@ -11,7 +11,7 @@ class CommentController extends Controller
 {
     public function store(Request $request, string $slug) {
         $request->validate([
-            'body' => ['required', 'string', 'min:50'],
+            'body' => ['required', 'string', 'min:2'],
 
         ]);
         $post = Post::where('slug', $slug)->firstOrFail();

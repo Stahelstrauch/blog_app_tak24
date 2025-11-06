@@ -2,6 +2,11 @@
 @section('title','Postitused – Admin')
 
 @section('content')
+@if (session('status'))
+    <div class="alert alert-success" role="alert">
+        {{ session('status') }}
+        </div>
+@endif
 <h1>Postitused</h1>
 
 <div class="stack" style="margin-bottom:12px">
@@ -45,17 +50,18 @@
                     @if($p->status!=='published')
                         <form action="{{ route('admin.posts.publish',$p) }}" method="post">
                             @csrf @method('patch')
-                            <button class="btn">Avalda</button>
+                            <button class="btn btn-primary"><i class="fa-solid fa-thumbs-up"></i>Avalda</button>
+
                         </form>
                     @else
                         <form action="{{ route('admin.posts.unpublish',$p) }}" method="post">
                             @csrf @method('patch')
-                            <button class="btn">Eemalda</button>
+                            <button class="btn btn-warning"><i class="fa-solid fa-xmark"></i>Eemalda</button>
                         </form>
                     @endif
                     <form action="{{ route('admin.posts.destroy',$p) }}" method="post" onsubmit="return confirm('Kustuta?')">
                         @csrf @method('delete')
-                        <button class="btn">Kustuta</button>
+                        <button class="btn btn-danger"><i class="fa-solid fa-trash"></i>Kustuta</button>
                     </form>
                 </td>
             </tr>
