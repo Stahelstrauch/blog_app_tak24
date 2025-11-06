@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentModerationController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\BlogController;
@@ -38,4 +39,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:Admin|Moderato
     Route::get('comments', [CommentModerationController::class, 'index'])->name('comments.index');
     Route::patch('comments/{comment}/status', [CommentModerationController::class, 'updateStatus'])->name('comments.updateStatus');
     Route::delete('comments/{comment}', [CommentModerationController::class, 'destroy'])->name('comments.destroy');
+
+    // Kategooriad
+    Route::resource('categories', CategoryController::class)->except(['show']);
 });

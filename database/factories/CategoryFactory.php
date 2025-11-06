@@ -17,7 +17,7 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $name = $this->faker->unique()->words(2, true);
+        $name = $this->faker->unique()->word(2, true);
         return [
             'name' => ucfirst($name), //Iga sõna esimene täht suureks
             'slug' => Str::slug($name),
