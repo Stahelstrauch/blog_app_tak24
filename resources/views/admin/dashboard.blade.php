@@ -12,19 +12,34 @@
         @if($needsAction->isEmpty())
             <div class="text-muted">Kõik korras.</div>
         @else
+        <p class="text-muted fw-bold">Kokku vajab ülevaatamist: <span class="text-primary">{{$needsAction->count()}}</span> postitust.</p>
             <ul class="list-group">
-                @foreach($needsAction as $post)
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <strong>{{ $post->title }}</strong>
-                        <br>
-                        <small>{{ $post->author->name }} – {{ $post->updated_at->format('d.m.Y H:i') }}</small>
-                    </div>
-                    <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-sm btn-primary">
+                
+                <table class="table table-striped table-bordered align-middle">
+                    <thead>
+                        <tr>
+                            <th>Pealkiri</th>
+                            <th>Autor</th>
+                            <th>Uuendatud</th>
+                            <th>Staatus</th>
+                            <th>Muutma</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    @foreach($needsAction->sortByDesc('updated_at')->take(5) as $post)
+                    <tr>
+                        <td>{{$post->title}}</td>
+                        <td>{{$post->author->name}}</td>
+                        <td>{{$post->updated_at->format('d.m.Y H:i')}}</td>
+                        <td>{{$post->status}}</td>
+                        <td><a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-sm btn-primary"><i class="fa-solid fa-square-up-right"></i>
                         Ava
-                    </a>
-                </li>
-                @endforeach
+                    </a></td>
+                    </tr>
+                  @endforeach  
+                </tbody>
+                </table>
+                
             </ul>
         @endif
     </div>
