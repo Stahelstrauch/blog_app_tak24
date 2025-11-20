@@ -50,18 +50,18 @@
                     @if($p->status!=='published')
                         <form action="{{ route('admin.posts.publish',$p) }}" method="post">
                             @csrf @method('patch')
-                            <button class="btn btn-primary"><i class="fa-solid fa-thumbs-up"></i>Avalda</button>
+                            <button class="btn btn-primary w-100 d-flex align-items-center gap-2 my-2"><i class="fa-solid fa-thumbs-up"></i>Avalda</button>
 
                         </form>
                     @else
                         <form action="{{ route('admin.posts.unpublish',$p) }}" method="post">
                             @csrf @method('patch')
-                            <button class="btn btn-warning"><i class="fa-solid fa-xmark"></i>Eemalda</button>
+                            <button class="btn btn-warning w-100 d-flex align-items-center gap-2 my-2"><i class="fa-solid fa-xmark"></i><span>Eemalda</span></button>
                         </form>
                     @endif
                     <form action="{{ route('admin.posts.destroy',$p) }}" method="post" onsubmit="return confirm('Kustuta?')">
                         @csrf @method('delete')
-                        <button class="btn btn-danger"><i class="fa-solid fa-trash"></i>Kustuta</button>
+                        <button class="btn btn-danger w-100 d-flex align-items-center gap-2"><i class="fa-solid fa-trash"></i>Kustuta</button>
                     </form>
                 </td>
             </tr>
