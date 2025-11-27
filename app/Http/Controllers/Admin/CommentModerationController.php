@@ -38,4 +38,24 @@ class CommentModerationController extends Controller
         return back()->with('status', 'Kommentaar kustutatud!');
     }
 
-}
+    public function restore($id){
+        $comment = Comment::onlyTrashed()->findorFail($id);
+
+        $this->authorize('restore', $comment); // Policy ainult Admin
+        $comment->restore();
+
+        return back()->with('status', 'Kommentaar taastatud prügikastist.');
+
+    }
+
+    public function forceDestroy($id) {
+        $comment = Comment::withTrashed()->findorFail($id);
+
+        $this->authorize('forceDelete', $comment); //Policy: ainult Admin
+
+        $comment->forceDelete(); // Kui comment ei kasuta SoftDelete, siis ->delete
+
+        return back()->with('status', 'Kommentaar jäädavalt kustutatud!!!');
+    }
+        
+    }

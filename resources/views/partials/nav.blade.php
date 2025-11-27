@@ -13,7 +13,7 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link" href="{{ route('blog.index') }}">Blogi</a></li>
 
-                {{-- Authori lühitee (enda postitused)
+                {{-- Authori lühitee (enda postitused) --}}
                 @role('Author')
                     <li class="nav-item dropdown">
                     <a id="authorDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -26,7 +26,7 @@
                         <li><a class="dropdown-item" href="{{ route('author.posts.create') }}">+ Uus postitus</a></li>
                     </ul>
                     </li>
-                @endrole --}}
+                @endrole
 
 
                 {{-- Moderatorile (ja Adminile) sisuhaldus – kui soovid moderaatorile ka oma ala teha, lisa siia viide --}}
@@ -53,7 +53,7 @@
                         {{-- Kasutajate haldus ainult Adminile --}}
                         @role('Admin')
                             <li><hr class="dropdown-divider"></li>
-                            {{-- <li><a class="dropdown-item" href="{{ route('admin.users.index') }}">Kasutajad</a></li> --}}
+                            <li><a class="dropdown-item" href="{{ route('admin.users.index') }}">Kasutajad</a></li>
                         @endrole
                     </ul>
                 </li>
@@ -111,7 +111,7 @@
                             @endrole
 
                             @role('Author')
-                                <a class="dropdown-item" href="{{ url('/dashboard') }}">Minu postitused</a>
+                                <a class="dropdown-item" href="{{ url('/author/posts') }}">Minu postitused</a>
                             @endrole
 
                             <div class="dropdown-divider"></div>

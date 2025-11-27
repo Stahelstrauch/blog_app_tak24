@@ -186,5 +186,25 @@ class PostController extends Controller
         return back()->with('status', 'Eemaldatud avalikust vaatest!');
     }
 
+    public function restore($id){
+        $post = Post::onlyTrashed()->findorFail($id);
+
+        $this->authorize('restore', $post); // Policy ainult Admin
+        $post->restore();
+
+        return back()->with('status', 'Postitus taastatud prügikastist.');
+
+    }
+
+    public function forceDestroy($id) {
+        $post = Post::withTrashed()->findorFail($id);
+
+        $this->authorize('forceDelete', $post); //Policy: ainult Admin
+
+        $post->forceDelete(); // Kui comment ei kasuta SoftDelete, siis ->delete
+
+        return back()->with('status', 'Postitus jäädavalt kustutatud!!!');
+    }
+
     
 }

@@ -287,18 +287,89 @@
                         <td>{{$post->created_at->format('d.m.Y H:i')}}</td>
                         <td>{{$post->updated_at->format('d.m.Y H:i')}}</td>
                         <td>{{$post->deleted_at->format('d.m.Y H:i')}}</td>
-                        <td><a href="#" class="btn btn-sm btn-primary"><i class="fa-solid fa-wand-magic"></i>
-                        Taasta
-                    </a></td>
-                            {{-- Kustuta nupp ainult adminile --}}
-                                
-                                    @role('Admin')
+                        @can('restore', $post)
                                     <td class="text-center">
+                                        <form method="POST" action="{{ route('admin.posts.restore', $post->id) }}" class="d-inline">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fa-solid fa-wand-magic"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    @endcan
+                  </td>
+                            {{-- Kustuta nupp ainult adminile --}}
+                    
+                                    @can('forceDelete', $post)
+                                    <td class="text-center">
+                                        <form method="POST" action="{{ route('admin.posts.forceDestroy', $post->id) }}" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm">
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </button>
+                                        </form>
                                     </td>
-                                    @endrole
+                                    @endcan
+                               
+                    </tr>
+                  @endforeach  
+                </tbody>
+                </table>
+        @endif
+    </div>    
+    
+     {{-- Prügikast kommentaaridele --}}
+    <div class="col-md-6">
+        <h4>Prügikast (kommentaarid)</h4>
+        @if($trashedComments->isEmpty())
+            <div class="text-muted">Prügikast on tühi.</div>
+        @else
+            <p class="text-muted fw-bold">Kokku prügikastis postitusi: <span class="text-danger">{{$trashedComments->count()}}</span>.</p>
+                    <table class="table table-striped table-bordered align-middle">
+                        <thead>
+                             <tr>
+                                <th>Kommentaar</th>
+                                <th>Autor</th>
+                                <th>Uuendamise aeg</th>
+                                @role('Admin')
+                                <th>Taasta</th>
+                                <th>Kustuta</th>
+                                @endrole
+                            </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($trashedComments->take(5) as $comment)
+                    <tr>
+                        <td>{{$comment->body}}</td>
+                        <td>{{$comment->author->name}}</td>
+                        <td>{{$comment->updated_at->format('d.m.Y H:i')}}</td>
+                        @can('restore', $comment)
+                                    <td class="text-center">
+                                        <form method="POST" action="{{ route('admin.comments.restore', $comment->id) }}" class="d-inline">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fa-solid fa-wand-magic"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    @endcan
+                  </td>
+                            {{-- Kustuta nupp ainult adminile --}}
+                    
+                                    @can('forceDelete', $comment)
+                                    <td class="text-center">
+                                        <form method="POST" action="{{ route('admin.comments.forceDestroy', $comment->id) }}" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    @endcan
                                
                     </tr>
                   @endforeach  
@@ -306,6 +377,7 @@
                 </table>
         @endif
     </div>                  
+
 
 </div>
 @endsection

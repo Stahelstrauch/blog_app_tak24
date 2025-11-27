@@ -26,7 +26,10 @@ class AdminDashboardController extends Controller
 
         $trashedPosts = Post::with('author')->onlyTrashed()->latest()->get();
 
-        return view('admin.dashboard', compact('needsAction', 'scheduled', 'recent', 'pendingComments', 'archivedPosts', 'orphanComments', 'trashedPosts'));    
+        $trashedComments = Comment::with(['author','post'])->onlyTrashed()->latest()->get();
+
+
+        return view('admin.dashboard', compact('needsAction', 'scheduled', 'recent', 'pendingComments', 'archivedPosts', 'orphanComments', 'trashedPosts', 'trashedComments'));    
 
     }
 
